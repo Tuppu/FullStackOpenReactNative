@@ -1,10 +1,11 @@
 const theme = {
     colors: {
       textPrimary: '#24292e',
-      textSecondary: '#ffffff',
+      textSecondary: '#586069',
+      textWhite: '#ffffff',
       primary: '#0366d6',
       backgroundColor: "#24292e",
-      repositoryItemBackgroundColor: "white"
+      repositoryItemBackgroundColor: 'white'
     },
     fontSizes: {
       body: 14,
