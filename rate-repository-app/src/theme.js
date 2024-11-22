@@ -4,6 +4,7 @@ const theme = {
       textSecondary: '#ffffff',
       primary: '#0366d6',
       backgroundColor: "#24292e",
+      repositoryItemBackgroundColor: "white"
     },
     fontSizes: {
       body: 14,
