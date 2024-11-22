@@ -1,4 +1,5 @@
 import { View, StyleSheet, Pressable } from 'react-native';
+import { Link } from "react-router-native";
 import Constants from 'expo-constants';
 import Text from './Text';
 
@@ -10,7 +11,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const AppBarTab = ({title}) => {
+const AppBarTab = ({title, path}) => {
 
   const onPressFunction = () => {
     console.log('onPress() not yet implemented!');
@@ -19,7 +20,9 @@ const AppBarTab = ({title}) => {
   return (
     <View>
       <Pressable onPress={onPressFunction}>
-        <Text style={styles.item} color="textSecondary">{title}</Text>
+        <Link to={path} >
+          <Text style={styles.item} color="textSecondary">{title}</Text>
+        </Link>
       </Pressable>
     </View>);
 };
