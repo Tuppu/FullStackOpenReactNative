@@ -13,13 +13,10 @@ const styles = StyleSheet.create({
 
 const AppBarTab = ({title, path}) => {
 
-  const onPressFunction = () => {
-    console.log('onPress() not yet implemented!');
-  }
 
   return (
     <View>
-      <Pressable onPress={onPressFunction}>
+      <Pressable>
         <Link to={path} >
           <Text style={styles.item} color="textSecondary">{title}</Text>
         </Link>
