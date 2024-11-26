@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Constants from 'expo-constants';
 
 const useRepositories = () => {
   const [repositories, setRepositories] = useState();
@@ -7,8 +8,7 @@ const useRepositories = () => {
   const fetchRepositories = async () => {
     setLoading(true);
 
-    // Replace the IP address part with your own IP address!
-    const response = await fetch('http://1.1.1.1/api/repositories');
+    const response = await fetch(`http://${Constants.expoConfig.extra.domain}/api/repositories`);
     const json = await response.json();
 
     setLoading(false);
