@@ -1,7 +1,7 @@
 import { View, StyleSheet} from 'react-native';
 import { DisplayImage } from './ImageDisplay';
-import theme from '../theme';
-import Text from './Text';
+import theme from '../../../theme';
+import Text from '../../misc/Text';
 
 const styles = StyleSheet.create({
     repositoryItemUser: {

@@ -1,7 +1,7 @@
 import { View, StyleSheet, Pressable } from 'react-native';
 import { Link } from "react-router-native";
 import Constants from 'expo-constants';
-import Text from './Text';
+import Text from '../misc/Text';
 
 const styles = StyleSheet.create({
   item: {

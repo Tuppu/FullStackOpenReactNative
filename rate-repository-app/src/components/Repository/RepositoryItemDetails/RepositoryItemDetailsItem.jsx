@@ -1,5 +1,5 @@
 import { View, StyleSheet } from 'react-native';
-import Text from './Text';
+import Text from '../../misc/Text';
 
 const styles = StyleSheet.create({
   detailRow: {

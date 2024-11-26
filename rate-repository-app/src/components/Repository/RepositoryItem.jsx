@@ -1,7 +1,7 @@
 import { View, StyleSheet} from 'react-native';
-import theme from '../theme';
-import RepositoryItemDetails from './RepositoryItemDetails';
-import RepositoryItemUser from './RepositoryItemUser';
+import theme from '../../theme';
+import RepositoryItemDetails from './RepositoryItemDetails/RepositoryItemDetails';
+import RepositoryItemUser from './RepositoryItemUser/RepositoryItemUser';
 
 const styles = StyleSheet.create({
     repositoryItem: {
