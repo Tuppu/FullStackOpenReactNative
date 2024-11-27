@@ -4,6 +4,8 @@ import theme from '../../theme';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import useSignIn from '../../hooks/useSignIn';
+import AuthStorage from '../../utils/authStorage';
+import { Platform } from 'react-native';
 
 const initialValues = {
     username: '',
@@ -53,8 +55,7 @@ const SignIn = () => {
     const { username, password } = values;
     try {
       const { authenticate } = await signIn({ username, password });
-      console.log(authenticate.accessToken, 'authenticate.accessToken');
-      
+      AuthStorage.setAccessToken(authenticate.accessToken);
     } catch (e) {
       console.log(e);
     }
@@ -66,31 +67,42 @@ const SignIn = () => {
     onSubmit,
   });
 
-  return (
-    <View>
+  const returnForm =  
+  <>
+    <TextInput style={[styles.input, (formik.touched.username && formik.errors.username) && styles.inputError]}
+      placeholder="Username"
+      value={formik.values.username}
+      onChangeText={formik.handleChange('username')}
+    />
+    {formik.touched.username && formik.errors.username && (
+      <Text style={styles.error}>{formik.errors.username}</Text>
+    )}
+    <TextInput style={[styles.input, (formik.touched.password && formik.errors.password) && styles.inputError]} secureTextEntry
+      placeholder="Password"
+      value={formik.values.password}
+      onChangeText={formik.handleChange('password')}
+    />
+    {formik.touched.password && formik.errors.password && (
+      <Text style={styles.error}>{formik.errors.password}</Text>
+    )}
+    <Pressable style={styles.button} onPress={formik.handleSubmit}>
+      <Text color="textSecondary">Login</Text>
+    </Pressable>
+  </>
+
+  if (Platform.OS !== 'web') {
+    return (
+      <View>
+        {returnForm}
+      </View>
+    );
+  } else {
+    return (
       <form>
-        <TextInput style={[styles.input, (formik.touched.username && formik.errors.username) && styles.inputError]}
-          placeholder="Username"
-          value={formik.values.username}
-          onChangeText={formik.handleChange('username')}
-        />
-        {formik.touched.username && formik.errors.username && (
-          <Text style={styles.error}>{formik.errors.username}</Text>
-        )}
-        <TextInput style={[styles.input, (formik.touched.password && formik.errors.password) && styles.inputError]} secureTextEntry
-          placeholder="Password"
-          value={formik.values.password}
-          onChangeText={formik.handleChange('password')}
-        />
-        {formik.touched.password && formik.errors.password && (
-          <Text style={styles.error}>{formik.errors.password}</Text>
-        )}
-        <Pressable style={styles.button} onPress={formik.handleSubmit}>
-          <Text color="textSecondary">Login</Text>
-        </Pressable>
+        {returnForm}
       </form>
-    </View>
-  );
+    );
+  }
 };
 
 export default SignIn;
