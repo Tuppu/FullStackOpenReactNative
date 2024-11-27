@@ -1,7 +1,8 @@
 import { FlatList, StyleSheet, View } from 'react-native';
 import RepositoryItem from './RepositoryItem';
-import { useQuery } from '@apollo/client';
-import { GET_REPOSITORIES } from '../../graphql/queries';
+import useRepositories from '../../hooks/useRepositories';
+import { passiveSupport } from 'passive-events-support/src/utils'
+import { Platform } from 'react-native';
 
 const styles = StyleSheet.create({
   separator: {
@@ -13,7 +14,8 @@ const styles = StyleSheet.create({
 });
 
 const RepositoryList = () => {
-  const { data, error, loading } = useQuery(GET_REPOSITORIES, {fetchPolicy: 'cache-and-network'});
+  
+  const { data, error, loading } = useRepositories();
 
   if (loading) {
     return <></>
@@ -31,10 +33,16 @@ const RepositoryList = () => {
 
   const ItemSeparator = () => <View style={styles.separator} />;
 
+  // Added non-passive event listener to a scroll-blocking 'wheel' event. Consider marking event handler as 'passive' to make the page more responsive
+  Platform.OS === 'web' && passiveSupport({
+    events: ['wheel']
+  });
+
   return (
     <FlatList style={styles.flatList}
       data={repositoryNodes}
       ItemSeparatorComponent={ItemSeparator}
+      
       renderItem={({item}) => <RepositoryItem item={item} />}
     />
   );

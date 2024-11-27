@@ -9,11 +9,11 @@ const apolloClient = createApolloClient();
 const App = () => {
   return (
     <>
-      <NativeRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true}}>
-        <ApolloProvider client={apolloClient}>
-          <Main />
-        </ApolloProvider>
-      </NativeRouter>
+        <NativeRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true}}>
+          <ApolloProvider client={apolloClient}>
+            <Main />
+          </ApolloProvider>
+        </NativeRouter>
     </>
   );
 };
