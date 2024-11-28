@@ -42,7 +42,6 @@ const RepositoryList = () => {
     <FlatList style={styles.flatList}
       data={repositoryNodes}
       ItemSeparatorComponent={ItemSeparator}
-      
       renderItem={({item}) => <RepositoryItem item={item} />}
     />
   );

@@ -13,7 +13,6 @@ const styles = StyleSheet.create({
 
 const AppBarTab = ({title, path}) => {
 
-
   return (
     <View>
       <Pressable>
