@@ -4,7 +4,6 @@ import theme from '../../theme';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import useSignIn from '../../hooks/useSignIn';
-import AuthStorage from '../../utils/authStorage';
 import { Platform } from 'react-native';
 
 const initialValues = {
@@ -54,8 +53,7 @@ const SignIn = () => {
   const onSubmit = async (values) => {
     const { username, password } = values;
     try {
-      const { authenticate } = await signIn({ username, password });
-      AuthStorage.setAccessToken(authenticate.accessToken);
+      await signIn({ username, password });
     } catch (e) {
       console.log(e);
     }
