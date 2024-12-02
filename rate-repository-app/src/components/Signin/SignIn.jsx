@@ -1,9 +1,8 @@
-import { TextInput, View, Pressable, StyleSheet } from 'react-native';
+import { TextInput, View, Pressable, StyleSheet, Platform} from 'react-native';
 import Text from '../misc/Text';
 import theme from '../../theme';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { Platform } from 'react-native';
 
 const initialValues = {
     username: '',

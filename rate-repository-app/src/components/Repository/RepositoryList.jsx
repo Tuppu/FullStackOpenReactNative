@@ -1,8 +1,8 @@
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View, Pressable, Platform } from 'react-native';
 import RepositoryItem from './RepositoryItem';
 import useRepositories from '../../hooks/useRepositories';
 import { passiveSupport } from 'passive-events-support/src/utils'
-import { Platform } from 'react-native';
+import { useNavigate } from "react-router";
 
 const styles = StyleSheet.create({
   separator: {
@@ -15,6 +15,11 @@ const styles = StyleSheet.create({
 
 const RepositoryList = () => {
   
+  let navigate = useNavigate();
+  const onPressFunction = (id) => {
+    navigate(`/${id}`);
+  }
+
   const { data, error, loading } = useRepositories();
 
   if (loading) {
@@ -38,11 +43,19 @@ const RepositoryList = () => {
     events: ['wheel']
   });
 
+  
+
+
+
   return (
     <FlatList style={styles.flatList}
       data={repositoryNodes}
       ItemSeparatorComponent={ItemSeparator}
-      renderItem={({item}) => <RepositoryItem item={item} />}
+      renderItem={({item}) => 
+        <Pressable onPress={() => onPressFunction(item.id)}>
+          <RepositoryItem item={item} />
+        </Pressable>
+        }
     />
   );
 };
