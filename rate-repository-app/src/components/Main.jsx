@@ -4,6 +4,7 @@ import RepositoryList from './Repository/RepositoryList';
 import AppBar from './AppBar/AppBar';
 import SignIn from './Signin/SignIn';
 import SignOut from './Signin/SignOut';
+import useSignIn from '../hooks/useSignIn';
 
 const styles = StyleSheet.create({
   container: {
@@ -13,12 +14,24 @@ const styles = StyleSheet.create({
 });
 
 const Main = () => {
+
+  const [signIn] = useSignIn();
+
+  const onSubmit = (values) => {
+    const { username, password } = values;
+    try {
+      signIn({ username, password });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   return (
     <View style={styles.container}>
       <AppBar />
       <Routes>
         <Route path="/" element={<RepositoryList />} />
-        <Route path="/login" element={<SignIn />} />
+        <Route path="/login" element={<SignIn onSubmit={onSubmit}></SignIn>} />
         <Route path="/logout" element={<SignOut />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
