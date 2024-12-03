@@ -20,6 +20,15 @@ export const GET_REPOSITORIES = gql`
   }
 `;
 
+export const GET_ME = gql`
+query Me {
+  me {
+    username
+    id
+  }
+}
+`;
+
 export const GET_REPOSITORY = gql`
   query ($repositoryId: ID!) {
     repository(id: $repositoryId) {
@@ -33,15 +42,21 @@ export const GET_REPOSITORY = gql`
       fullName
       ownerAvatarUrl
       url
+      
+      reviews {
+        edges {
+          node {
+            id
+            text
+            rating
+            createdAt
+            user {
+              id
+              username
+            }
+          }
+        }
+      }
     }
   }
-`;
-
-export const GET_ME = gql`
-query Me {
-  me {
-    username
-    id
-  }
-}
 `;

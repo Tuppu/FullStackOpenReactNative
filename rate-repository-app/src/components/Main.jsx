@@ -5,7 +5,7 @@ import AppBar from './AppBar/AppBar';
 import SignIn from './Signin/SignIn';
 import SignOut from './Signin/SignOut';
 import useSignIn from '../hooks/useSignIn';
-import RepositorySingleItem from './Repository/RepositorySingleItem';
+import SingleRepository from './Repository/SingleRepository/SingleRepository';
 
 const styles = StyleSheet.create({
   container: {
@@ -32,7 +32,7 @@ const Main = () => {
       <AppBar />
       <Routes>
         <Route path="/" element={<RepositoryList />} />
-        <Route path="/:id" element={<RepositorySingleItem />} />
+        <Route path="/:id" element={<SingleRepository />} />
         <Route path="/login" element={<SignIn onSubmit={onSubmit}></SignIn>} />
         <Route path="/logout" element={<SignOut />} />
         <Route path="*" element={<Navigate to="/" replace />} />

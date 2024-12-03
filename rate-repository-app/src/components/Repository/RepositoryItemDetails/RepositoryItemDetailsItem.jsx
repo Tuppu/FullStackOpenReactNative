@@ -25,7 +25,7 @@ const RepositoryItemDetailsItem = ({title, count}) => {
   return (  
     <View style={styles.detailRow}>
       <Text style={styles.value}>{valueParsed(count)}</Text>  
-      <Text style={styles.title}>{title}</Text>  
+      <Text color="text3rd" style={styles.title}>{title}</Text>  
     </View>
   )
 }
