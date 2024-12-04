@@ -6,11 +6,13 @@ import SignIn from './Signin/SignIn';
 import SignOut from './Signin/SignOut';
 import useSignIn from '../hooks/useSignIn';
 import SingleRepository from './Repository/SingleRepository/SingleRepository';
+import CreateNewReview from './Repository/CreateReview/CreateNewReview';
 
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     flexShrink: 1,
+    backgroundColor: "#e1e4e8"
   },
 });
 
@@ -35,6 +37,7 @@ const Main = () => {
         <Route path="/:id" element={<SingleRepository />} />
         <Route path="/login" element={<SignIn onSubmit={onSubmit}></SignIn>} />
         <Route path="/logout" element={<SignOut />} />
+        <Route path="/createReview" element={<CreateNewReview />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </View>

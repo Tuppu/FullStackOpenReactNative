@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
   item: {
     paddingTop: Constants.statusBarHeight,
     paddingBottom: Constants.statusBarHeight,
-    paddingLeft: Constants.statusBarHeight /2,
+    paddingLeft: 12,
   }
 });
 
