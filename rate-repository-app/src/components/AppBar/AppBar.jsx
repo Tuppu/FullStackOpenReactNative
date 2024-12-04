@@ -34,6 +34,7 @@ const AppBar = () => {
       <AppBarTab title="Create a review" path="/createReview" />
       {!data.me && <AppBarTab title="Login" path="/login" />}
       {data.me && <AppBarTab title="Logout" path="/logout" />}
+      {!data.me && <AppBarTab title="Sign up" path="/signup" />}
     </ScrollView>
   </View>;
 };
