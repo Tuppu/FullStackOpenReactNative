@@ -1,20 +1,19 @@
 import { useState } from 'react';
-import { FlatList, StyleSheet, Pressable, Platform } from 'react-native';
-import RepositoryInfo from './SingleRepository/RepositoryInfo';
+import { Platform } from 'react-native';
 import useRepositories from '../../hooks/useRepositories';
 import { passiveSupport } from 'passive-events-support/src/utils'
 import { useNavigate } from "react-router";
-import { Picker } from '@react-native-picker/picker';
-
-const styles = StyleSheet.create({
-  flatList: {
-    backgroundColor: "#e1e4e8"
-  },
-});
+import { RepositoryListContainer } from './RepositoryListContainer';
+import { useDebounce } from 'use-debounce';
 
 const RepositoryList = () => {
   
   const [selectedOrderBy, setSelectedOrderBy] = useState('latesRepos');
+  const funcSetSelectedOrderBy = (selectedOrderBy) => { setSelectedOrderBy(selectedOrderBy) };
+
+  const [searchQuery, setSearchQuery] = useState('');
+  const funcSetSearchQuery = (searchQuery) => { setSearchQuery(searchQuery) };
+  const [searchQueryDebounced] = useDebounce(searchQuery, 500);
 
   let navigate = useNavigate();
   const onPressFunction = (id) => {
@@ -39,7 +38,7 @@ const RepositoryList = () => {
       break;
   } 
 
-  const { data, error, loading } = useRepositories(orderBy, orderDirection);
+  const { data, error, loading } = useRepositories(orderBy, orderDirection, searchQueryDebounced);
 
   if (loading) {
     return <></>
@@ -61,25 +60,9 @@ const RepositoryList = () => {
   });
   
   return (
-    <FlatList style={styles.flatList}
-      data={repositoryNodes}
-      renderItem={({item}) => 
-        <Pressable onPress={() => onPressFunction(item.id)}>
-          <RepositoryInfo item={item} />
-        </Pressable>
-        }
-      ListHeaderComponent={() => 
-        <Picker
-          selectedValue={selectedOrderBy}
-          onValueChange={(itemValue) =>
-            setSelectedOrderBy(itemValue)
-          }>
-          <Picker.Item label="Latest repositories" value="latesRepos" />
-          <Picker.Item label="Highest rated repositories" value="highetRatedRepos" />
-          <Picker.Item label="Lowest rated repositories" value="lowestRatedRepos" />
-        </Picker>
-        }
-    />
+    <RepositoryListContainer repositoryNodes={repositoryNodes} onPressFunction={onPressFunction}
+     selectedOrderBy={selectedOrderBy} funcSetSelectedOrderBy={funcSetSelectedOrderBy}
+     searchQuery={searchQuery} funcSetSearchQuery={funcSetSearchQuery} />
   );
 };
 
