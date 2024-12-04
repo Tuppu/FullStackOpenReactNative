@@ -3,7 +3,7 @@ import useSignOut from '../../hooks/useSignOut';
 const SignOut = () => {
   useSignOut();
   
-  return (<div>user signed out</div>);
+  return (<>user signed out</>);
 };
 
 export default SignOut;

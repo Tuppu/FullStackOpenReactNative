@@ -22,10 +22,24 @@ export const GET_REPOSITORIES = gql`
 `;
 
 export const GET_ME = gql`
-query Me {
+query Me ($includeReviews: Boolean = false) {
   me {
     username
     id
+    reviews @include(if: $includeReviews) {
+      edges {
+        node {
+          id
+          text
+          rating
+          createdAt
+          user {
+            id
+            username
+          }
+        }
+      }
+    }
   }
 }
 `;
