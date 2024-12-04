@@ -5,6 +5,7 @@ const theme = {
       textPrimary: '#24292e',
       textSecondary: '#586069',
       textWhite: '#ffffff',
+      textDelete: 'red',
       primary: '#0366d6',
       backgroundColor: "#24292e",
       repositoryItemBackgroundColor: 'white'

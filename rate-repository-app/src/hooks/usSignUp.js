@@ -6,7 +6,7 @@ const useSignUp = () => {
   const [mutate, result] = useMutation(CREATE_USER);
   const navigate = useNavigate();
 
-  const signIn = async ({ username, password }) => {
+  const signUp = async ({ username, password }) => {
 
     const { data } = await mutate({ variables: { "user": {"username": username, "password": password}}})
     if (data?.createUser?.id) {
@@ -16,7 +16,7 @@ const useSignUp = () => {
     return data;
   };
 
-  return [signIn, result];
+  return [signUp, result];
 };
 
 export default useSignUp;
