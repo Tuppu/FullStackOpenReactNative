@@ -1,23 +1,45 @@
+import { useState } from 'react';
 import { FlatList, StyleSheet, Pressable, Platform } from 'react-native';
 import RepositoryInfo from './SingleRepository/RepositoryInfo';
 import useRepositories from '../../hooks/useRepositories';
 import { passiveSupport } from 'passive-events-support/src/utils'
 import { useNavigate } from "react-router";
+import { Picker } from '@react-native-picker/picker';
 
 const styles = StyleSheet.create({
   flatList: {
     backgroundColor: "#e1e4e8"
-  }
+  },
 });
 
 const RepositoryList = () => {
   
+  const [selectedOrderBy, setSelectedOrderBy] = useState('latesRepos');
+
   let navigate = useNavigate();
   const onPressFunction = (id) => {
     navigate(`/${id}`);
   }
 
-  const { data, error, loading } = useRepositories();
+  let orderBy = 'CREATED_AT', orderDirection = 'ASC'
+
+  switch (selectedOrderBy) {
+    case 'highetRatedRepos':
+      orderDirection = 'DESC'
+      orderBy = 'RATING_AVERAGE'
+      break;
+    case 'lowestRatedRepos':
+      orderDirection = 'ASC'
+      orderBy = 'RATING_AVERAGE'
+      break;
+    case 'latesRepos':
+    default:
+      orderDirection = 'DESC'
+      orderBy = 'CREATED_AT'
+      break;
+  } 
+
+  const { data, error, loading } = useRepositories(orderBy, orderDirection);
 
   if (loading) {
     return <></>
@@ -37,7 +59,7 @@ const RepositoryList = () => {
   Platform.OS === 'web' && passiveSupport({
     events: ['wheel']
   });
-
+  
   return (
     <FlatList style={styles.flatList}
       data={repositoryNodes}
@@ -45,6 +67,17 @@ const RepositoryList = () => {
         <Pressable onPress={() => onPressFunction(item.id)}>
           <RepositoryInfo item={item} />
         </Pressable>
+        }
+      ListHeaderComponent={() => 
+        <Picker
+          selectedValue={selectedOrderBy}
+          onValueChange={(itemValue) =>
+            setSelectedOrderBy(itemValue)
+          }>
+          <Picker.Item label="Latest repositories" value="latesRepos" />
+          <Picker.Item label="Highest rated repositories" value="highetRatedRepos" />
+          <Picker.Item label="Lowest rated repositories" value="lowestRatedRepos" />
+        </Picker>
         }
     />
   );
