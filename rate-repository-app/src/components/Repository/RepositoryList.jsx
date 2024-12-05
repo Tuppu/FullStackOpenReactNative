@@ -38,7 +38,11 @@ const RepositoryList = () => {
       break;
   } 
 
-  const { data, error, loading } = useRepositories(orderBy, orderDirection, searchQueryDebounced);
+  const { repositories, error, loading, fetchMore } = useRepositories(orderBy, orderDirection, searchQueryDebounced, {first: 3});
+
+  const onEndReach = () => {
+    fetchMore();
+  };
 
   if (loading) {
     return <></>
@@ -47,8 +51,6 @@ const RepositoryList = () => {
   if (error) {
     console.log(error, 'error');
   }
-
-  const repositories = data.repositories;
   
   const repositoryNodes = repositories
     ? repositories.edges.map(edge => edge.node)
@@ -62,7 +64,8 @@ const RepositoryList = () => {
   return (
     <RepositoryListContainer repositoryNodes={repositoryNodes} onPressFunction={onPressFunction}
      selectedOrderBy={selectedOrderBy} funcSetSelectedOrderBy={funcSetSelectedOrderBy}
-     searchQuery={searchQuery} funcSetSearchQuery={funcSetSearchQuery} />
+     searchQuery={searchQuery} funcSetSearchQuery={funcSetSearchQuery}
+     onEndReach={onEndReach} />
   );
 };
 

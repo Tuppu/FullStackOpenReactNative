@@ -20,19 +20,20 @@ export class RepositoryListContainer extends React.Component {
     };
   
     render() {
-        const { repositoryNodes, onPressFunction} = this.props;
+        const { repositoryNodes, onPressFunction, onEndReach} = this.props;
 
         return (
-            <FlatList style={styles.flatList}
+          <FlatList style={styles.flatList}
             data={repositoryNodes}
             renderItem={({item}) => 
               <Pressable onPress={() => onPressFunction(item.id)}>
                 <RepositoryInfo item={item} />
               </Pressable>
               }
-                // ...
-                ListHeaderComponent={this.renderHeader}
-            />
+            ListHeaderComponent={this.renderHeader}
+            onEndReached={onEndReach}
+            onEndReachedThreshold={0.5}
+          />
         );
     }
   }

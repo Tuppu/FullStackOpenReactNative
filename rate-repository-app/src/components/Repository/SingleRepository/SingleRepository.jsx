@@ -16,7 +16,11 @@ const styles = StyleSheet.create({
 const SingleRepository = () => {
 
   const id = useParams().id;
-  const { data, error, loading } = useRepository(id);
+  const { repository, error, loading, fetchMore } = useRepository(id, {first: 2});
+  
+  const onEndReach = () => {
+    fetchMore();
+  };
 
   if (loading) {
     return <></>
@@ -26,7 +30,7 @@ const SingleRepository = () => {
     console.log(error, 'error');
   }
 
-  const repository = data.repository;
+
   const reviews = repository.reviews;
 
   const ItemSeparator = () => <View style={styles.separator} />;
@@ -40,6 +44,8 @@ const SingleRepository = () => {
       ListHeaderComponent={() => 
         <RepositoryInfo item={repository} showGitHubLink />
       }
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
     />
   );
 };
